@@ -35,8 +35,9 @@ def t(ar, en):
 DIR = "rtl" if LANG == "ar" else "ltr"
 
 # ─── Admin Credentials (simple file-based store) ──────────────────────────────
-USERS_FILE = "sanad_users.json"
-NEW_CASES_FILE = "new_cases.csv"
+USERS_FILE = "Database/sanad_users.json"
+NEW_CASES_FILE = "Database/new_cases.csv"
+
 
 def load_users():
     if os.path.exists(USERS_FILE):
@@ -1485,7 +1486,7 @@ def admin_cases(df):
     # ── تحميل البيانات حسب الاختيار ──
     if st.session_state.cases_source == "new":
         try:
-            df = pd.read_csv("new_cases.csv", dtype={"ssn": str})
+            df = pd.read_csv("Database/new_cases.csv", dtype={"ssn": str})
             df["ssn"] = df["ssn"].str.replace(".0", "", regex=False).str.strip()
         except Exception:
             df = pd.DataFrame()
@@ -1885,7 +1886,7 @@ def admin_add_case(df, models):
         if save_index == SAVE_OPTIONS[SAVE_INDEX_SAVE]:
             new_df = pd.concat([df, pd.DataFrame([new_case])], ignore_index=True)
             try:
-                new_df.to_csv("database.csv", index=False)
+                new_df.to_csv("Database/database.csv", index=False)
                 st.success(t(
                     f"تم حفظ الحالة بنجاح! التصنيف: {cinfo['name']}",
                     f"Case saved successfully! Classification: {cinfo['name']}"
