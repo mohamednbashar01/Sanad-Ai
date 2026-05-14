@@ -70,7 +70,7 @@ def register_user(username, password):
 @st.cache_data
 def load_data():
     try:
-        df = pd.read_csv("database.csv", dtype={"ssn": str})
+        df = pd.read_csv("Database/database.csv", dtype={"ssn": str})
 
         df["ssn"] = (
             df["ssn"]
