@@ -777,28 +777,35 @@ def inject_css():
     }}
 
     /* ══════════════════════════════════════════════════════════════
-       🌐 RTL/LTR FIX — تصحيح اتجاه الـ sidebar
+       🌐 RTL FIX — تصحيح اتجاه الـ sidebar مع العربي
     ══════════════════════════════════════════════════════════════ */
 
-    /* الـ sidebar wrapper دايمًا LTR عشان الـ animation يشتغل صح */
-    [data-testid="stSidebar"],
+    /* منع الـ RTL من التأثير على الـ sidebar نفسه */
+    [data-testid="stSidebar"] {{
+        direction: ltr !important;
+    }}
+    /* لكن المحتوى جواه يفضل RTL */
+    [data-testid="stSidebar"] > div {{
+        direction: {'rtl' if LANG == 'ar' else 'ltr'} !important;
+    }}
+
+    /* تأكد إن الـ sidebar بيتحرك لليسار صح */
+    [data-testid="stSidebar"][aria-expanded="false"],
+    [data-testid="stSidebar"].st-emotion-cache-collapsed {{
+        transform: translateX(-270px) !important;
+        margin-left: -270px !important;
+    }}
+
+    /* منع أي transform تاني من الـ RTL */
     .stApp > section:first-child {{
         direction: ltr !important;
     }}
-
-    /* المحتوى جوا الـ sidebar يتبع اللغة */
-    [data-testid="stSidebar"] > div,
-    [data-testid="stSidebar"] > div * {{
+    .stApp > section:first-child * {{
         direction: {'rtl' if LANG == 'ar' else 'ltr'} !important;
     }}
-
-    /* في العربي — الـ sidebar على اليسار والـ animation لليسار زي الإنجليزي */
-    {'[data-testid="stSidebar"] { left: 0 !important; right: auto !important; }' if LANG == 'ar' else ''}
-
-    /* الـ main content دايمًا يبدأ بعد الـ sidebar */
-    .stApp > section.main {{
-        direction: {'rtl' if LANG == 'ar' else 'ltr'} !important;
-        margin-left: 0 !important;
+    /* استثناء الـ sidebar wrapper نفسه */
+    .stApp > section[data-testid="stSidebar"] {{
+        direction: ltr !important;
     }}
 
     /* ══════════════════════════════════════════════════════════════
