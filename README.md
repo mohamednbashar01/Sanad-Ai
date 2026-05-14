@@ -1,12 +1,11 @@
 <div align="center">
 
-# 🎗️ Sanad AI — سند
+# 🎗️ سند · SANAD
 ### Needy Families Data Analysis & Management System
 
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-27ae60?style=for-the-badge)](LICENSE)
 
 > An AI-powered social welfare platform that uses **Gaussian Mixture Model (GMM) clustering** to automatically classify needy families by vulnerability level — enabling NGOs and aid organizations to prioritize and allocate resources more effectively.
 
@@ -14,24 +13,7 @@
 
 ---
 
-## 📌 Table of Contents
-
-- [Overview](#-overview)
-- [Key Features](#-key-features)
-- [System Architecture](#-system-architecture)
-- [ML Pipeline](#-ml-pipeline)
-- [Data](#-data)
-- [Screenshots](#-screenshots)
-- [Project Structure](#-project-structure)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [Cluster Definitions](#-cluster-definitions)
-- [Roadmap](#-roadmap)
-- [Team](#-team)
-
----
-
-## 🌍 Overview
+## Overview
 
 **Sanad AI** is a bilingual (Arabic/English) web application built to help social workers, NGO administrators, and donors manage and understand the needs of underprivileged families in Egypt.
 
@@ -41,33 +23,33 @@ The system handles the full pipeline — from **data collection** (public submis
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 👤 Public Portal
+### Public Portal
 - Families can submit aid requests directly via a public form (no login required)
 - Bilingual interface — full Arabic RTL + English LTR support
 - Automatic AI classification upon submission
 
-### 🛡️ Admin Dashboard
+### Admin Dashboard
 - Secure login with hashed password storage
 - Full case management — search, filter by governorate, cluster, and more
 - Add new cases manually with instant AI classification
 - View both the main database and newly submitted cases
 - Create additional admin accounts from within the dashboard
 
-### 🤝 Donor Portal
+### Donor Portal
 - View anonymized statistics and need maps without registration
 - Explore need levels by governorate, district, and village
 - Integrated donation flow via InstaPay, Vodafone Cash, and WhatsApp
 
-### 📊 Analytics
+### Analytics
 - Interactive charts: cluster distribution, governorate breakdown, income histogram, family size by cluster
 - KPI cards: total cases, critical cases, average income, governorate count
 - Additional stats: chronic disease, disability, debt, rural/urban breakdown
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -79,19 +61,19 @@ The system handles the full pipeline — from **data collection** (public submis
         │                │
         ▼                ▼
 ┌───────────────┐  ┌─────────────────────────────────┐
-│ new_cases.csv │  │          database.csv            │
-│ + AI Cluster  │  │  (main dataset + cluster labels) │
+│ new_cases.csv │  │          database.csv           │
+│ + AI Cluster  │  │ (main dataset + cluster labels) │
 └───────────────┘  └──────────────┬──────────────────┘
                                   │
                     ┌─────────────▼──────────────┐
-                    │        ML Pipeline          │
+                    │        ML Pipeline         │
                     │  Preprocessor → PCA → GMM  │
                     └────────────────────────────┘
 ```
 
 ---
 
-## 🤖 ML Pipeline
+## ML Pipeline
 
 The classification pipeline consists of three stages:
 
@@ -123,7 +105,7 @@ If model files are unavailable, the system falls back to a simple income-based r
 
 ---
 
-## 📦 Data
+## Data
 
 ### Synthetic Dataset
 The prototype uses **synthetically generated data** that mirrors the statistical distribution of real Egyptian household survey data. It covers 35+ features per family including:
@@ -141,46 +123,42 @@ The system is architecturally ready to plug in real data from organizations like
 
 ---
 
-## 🖼️ Screenshots
+## Screenshots
 
 | Login Page | Admin Dashboard |
 |---|---|
-| ![login](screenshots/login.png) | ![dashboard](screenshots/dashboard.png) |
+| ![login](screenshots/Login Page.png) | ![dashboard](screenshots/Admin Dashboard.png) |
 
-| Case Management | Add New Case |
+| Case Management | Donor Statistics |
 |---|---|
-| ![cases](screenshots/cases.png) | ![add_case](screenshots/add_case.png) |
+| ![cases](screenshots/Case Management.png) | ![add_case](screenshots/Donor Statistics.png) |
 
-| Donor Statistics | Need Map |
+| Donation page | Need Map |
 |---|---|
-| ![donor](screenshots/donor_stats.png) | ![map](screenshots/need_map.png) |
-
-> 📁 Add your screenshots to a `/screenshots` folder in the repo root.
+| ![donor](screenshots/Donation page.png) | ![map](screenshots/Need Map.png) |
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 sanad-ai/
 │
 ├── app.py                   # Main Streamlit application
-├── database.csv             # Main family dataset (synthetic)
-├── new_cases.csv            # Public submissions (auto-created)
-├── sanad_users.json         # Admin credentials (hashed)
+|
+├── Data-Analysis-and-ML-Pipeline.ipynb
 │
-├── models/
-│   ├── sanad_processor.pkl  # Preprocessing pipeline
-│   ├── sanad_pca.pkl        # PCA transformer
-│   ├── sanad_gmm_model.pkl  # Trained GMM model
-│   ├── features_list.pkl    # Feature names used in training
-│   └── cluster_mapping.pkl  # Cluster ID → label mapping
+├── PKL/                     
+│   ├── sanad_processor.pkl
+│   ├── sanad_pca.pkl
+│   ├── sanad_gmm_model.pkl
+│   ├── features_list.pkl
+│   └── cluster_mapping.pkl
 │
-├── notebooks/
-│   ├── 01_data_generation.ipynb   # Synthetic data creation
-│   ├── 02_eda.ipynb               # Exploratory data analysis
-│   ├── 03_preprocessing.ipynb     # Feature engineering & pipeline
-│   └── 04_clustering.ipynb        # GMM training & evaluation
+├── Database/
+│   ├── database.csv         # Main family dataset (synthetic)
+│   ├── new_cases.csv        # Public submissions (auto-created)
+│   ├── sanad_users.json     # Admin credentials (hashed)
 │
 ├── requirements.txt
 └── README.md
@@ -188,7 +166,7 @@ sanad-ai/
 
 ---
 
-## ⚙️ Installation
+## Installation
 
 ```bash
 # 1. Clone the repository
@@ -219,14 +197,13 @@ joblib>=1.3.0
 
 ---
 
-## 🚀 Usage
+## Usage
 
 ### Default Admin Login
 | Username | Password |
 |---|---|
 | `admin` | `admin123` |
 
-> ⚠️ Change the default password immediately after first login via the **Create Admin Account** page.
 
 ### User Roles
 
@@ -238,7 +215,7 @@ joblib>=1.3.0
 
 ---
 
-## 🏷️ Cluster Definitions
+## Cluster Definitions
 
 | Cluster | Label | Description | Priority |
 |---|---|---|---|
@@ -249,7 +226,7 @@ joblib>=1.3.0
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
 - [x] Bilingual UI (Arabic RTL + English)
 - [x] GMM-based automatic family classification
@@ -259,27 +236,30 @@ joblib>=1.3.0
 - [ ] Integration with real NGO data (Hayah Karima)
 - [ ] Export reports as PDF / Excel
 - [ ] SMS/Email notifications for submitted cases
-- [ ] Role-based access control (field worker, supervisor, admin)
 - [ ] Mobile app version
 
 ---
 
-## 👥 Team
+## Team
 
 Built with ❤️ for social impact in Egypt.
 
-| Name | Role |
-|---|---|
-| **[Your Name]** | ML Engineer & Full-Stack Developer |
+| Name |
+|---|
+| **Mohamed Nabil Bashar** |
+| **Mohamed Wageh Salama ** |
+| **Abdelrahman Elsayed Saad ** |
+| **Eman Magdy Zakaria ** |
+| **Rawda Ibrahim Hamza ** |
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **Apache License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
 <div align="center">
-<sub>سند · SANAD — Supporting families, one data point at a time.</sub>
+<sub>سند · SANAD</sub>
 </div>
