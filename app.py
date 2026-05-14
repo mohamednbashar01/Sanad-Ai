@@ -713,20 +713,19 @@ def inject_css():
     }}
 
     /* ══════════════════════════════════════════════════════════════
-       📐 SIDEBAR WIDTH — تثبيت العرض
+       📐 SIDEBAR WIDTH — تثبيت العرض فقط
     ══════════════════════════════════════════════════════════════ */
     [data-testid="stSidebar"],
     [data-testid="stSidebar"] > div:first-child {{
         min-width: 270px !important;
         max-width: 270px !important;
         width: 270px !important;
+        transition: transform 0.3s ease !important;
     }}
 
     /* ══════════════════════════════════════════════════════════════
-       🔘 SIDEBAR TOGGLE BUTTON — زرار الفتح والقفل
+       🔘 SIDEBAR TOGGLE BUTTON
     ══════════════════════════════════════════════════════════════ */
-
-    /* زرار الفتح (لما الـ sidebar مقفول) — دايمًا على اليسار في Streamlit */
     [data-testid="collapsedControl"] {{
         visibility: visible !important;
         display: flex !important;
@@ -736,6 +735,7 @@ def inject_css():
         left: 12px !important;
         right: auto !important;
         z-index: 999999 !important;
+        transform: none !important;
     }}
     [data-testid="collapsedControl"] button {{
         visibility: visible !important;
@@ -744,6 +744,7 @@ def inject_css():
         border-radius: 8px !important;
         padding: 6px 8px !important;
         cursor: pointer !important;
+        transform: none !important;
     }}
     [data-testid="collapsedControl"] button:hover {{
         background: #2980b9 !important;
@@ -754,7 +755,7 @@ def inject_css():
         visibility: visible !important;
     }}
 
-    /* زرار القفل (جوا الـ sidebar) */
+    /* زرار القفل جوا الـ sidebar */
     [data-testid="stSidebarCollapseButton"] {{
         visibility: visible !important;
         opacity: 1 !important;
@@ -764,6 +765,7 @@ def inject_css():
         background: rgba(255,255,255,0.08) !important;
         border: 1px solid rgba(216,174,52,0.4) !important;
         border-radius: 8px !important;
+        transform: none !important;
     }}
     [data-testid="stSidebarCollapseButton"] button:hover {{
         background: rgba(216,174,52,0.15) !important;
@@ -775,7 +777,39 @@ def inject_css():
     }}
 
     /* ══════════════════════════════════════════════════════════════
-       📱 MOBILE RESPONSIVE
+       🌐 RTL FIX — تصحيح اتجاه الـ sidebar مع العربي
+    ══════════════════════════════════════════════════════════════ */
+
+    /* منع الـ RTL من التأثير على الـ sidebar نفسه */
+    [data-testid="stSidebar"] {{
+        direction: ltr !important;
+    }}
+    /* لكن المحتوى جواه يفضل RTL */
+    [data-testid="stSidebar"] > div {{
+        direction: {'rtl' if LANG == 'ar' else 'ltr'} !important;
+    }}
+
+    /* تأكد إن الـ sidebar بيتحرك لليسار صح */
+    [data-testid="stSidebar"][aria-expanded="false"],
+    [data-testid="stSidebar"].st-emotion-cache-collapsed {{
+        transform: translateX(-270px) !important;
+        margin-left: -270px !important;
+    }}
+
+    /* منع أي transform تاني من الـ RTL */
+    .stApp > section:first-child {{
+        direction: ltr !important;
+    }}
+    .stApp > section:first-child * {{
+        direction: {'rtl' if LANG == 'ar' else 'ltr'} !important;
+    }}
+    /* استثناء الـ sidebar wrapper نفسه */
+    .stApp > section[data-testid="stSidebar"] {{
+        direction: ltr !important;
+    }}
+
+    /* ══════════════════════════════════════════════════════════════
+       📱 MOBILE ONLY — الموبايل فقط
     ══════════════════════════════════════════════════════════════ */
     @media (max-width: 768px) {{
         .main-header {{ padding: 20px !important; flex-direction: column; gap: 12px; }}
@@ -788,8 +822,6 @@ def inject_css():
             left: 0 !important;
             height: 100vh !important;
             z-index: 99998 !important;
-            min-width: 260px !important;
-            max-width: 260px !important;
         }}
         [data-testid="collapsedControl"] {{
             top: 8px !important;
@@ -800,6 +832,7 @@ def inject_css():
             padding-right: 0.75rem !important;
         }}
     }}
+
     @media (max-width: 640px) {{
         .login-form-area {{ padding: 24px 16px; }}
         .login-form-area,
@@ -810,7 +843,7 @@ def inject_css():
     @media (max-width: 480px) {{
         .kpi-grid {{ grid-template-columns: 1fr !important; }}
     }}
-
+    
     </style>
     """, unsafe_allow_html=True)
 
