@@ -127,15 +127,15 @@ The system is architecturally ready to plug in real data from organizations like
 
 | Login Page | Admin Dashboard |
 |---|---|
-| ![login](screenshots/Login Page.png) | ![dashboard](screenshots/Admin Dashboard.png) |
+| ![login](screenshots/Login.png) | ![dashboard](screenshots/Dashboard.png) |
 
 | Case Management | Donor Statistics |
 |---|---|
-| ![cases](screenshots/Case Management.png) | ![add_case](screenshots/Donor Statistics.png) |
+| ![cases](screenshots/Management.png) | ![Donor_Statistics](screenshots/Statistics.png) |
 
 | Donation page | Need Map |
 |---|---|
-| ![donor](screenshots/Donation page.png) | ![map](screenshots/Need Map.png) |
+| ![donor](screenshots/Donation.png) | ![map](screenshots/Map.png) |
 
 ---
 
