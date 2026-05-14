@@ -700,94 +700,115 @@ def inject_css():
        🙈 HIDE STREAMLIT BRANDING
     ══════════════════════════════════════════════════════════════ */
     #MainMenu, footer {{ visibility: hidden; }}
-    header {{ visibility: hidden; }}
     .block-container {{ padding-top: 24px; padding-bottom: 40px; }}
 
-    /* ══════════════════════════════════════════════════════════════
-       📐 SIDEBAR — تثبيت العرض + إظهار زرار الفتح دايمًا
-    ══════════════════════════════════════════════════════════════ */
-
-    /* تثبيت عرض الـ sidebar على كل الشاشات */
-    [data-testid="stSidebar"] {{
-        min-width: 270px !important;
-        max-width: 270px !important;
-        width: 270px !important;
+    /* إخفاء الـ header بس مع استثناء زرار الـ sidebar */
+    header {{
+        visibility: hidden;
     }}
+    header [data-testid="collapsedControl"],
+    header [data-testid="stSidebarCollapseButton"],
+    header button {{
+        visibility: visible !important;
+    }}
+
+    /* ══════════════════════════════════════════════════════════════
+       📐 SIDEBAR WIDTH — تثبيت العرض
+    ══════════════════════════════════════════════════════════════ */
+    [data-testid="stSidebar"],
     [data-testid="stSidebar"] > div:first-child {{
         min-width: 270px !important;
         max-width: 270px !important;
         width: 270px !important;
     }}
 
-    /* زرار فتح/قفل الـ sidebar — خليه ظاهر دايمًا */
+    /* ══════════════════════════════════════════════════════════════
+       🔘 SIDEBAR TOGGLE BUTTON — زرار الفتح والقفل
+    ══════════════════════════════════════════════════════════════ */
+
+    /* زرار الفتح (لما الـ sidebar مقفول) — دايمًا على اليسار في Streamlit */
     [data-testid="collapsedControl"] {{
-        display: flex !important;
         visibility: visible !important;
+        display: flex !important;
         opacity: 1 !important;
         position: fixed !important;
-        top: 14px !important;
-        {'right' if LANG == 'ar' else 'left'}: 14px !important;
-        z-index: 9999 !important;
+        top: 12px !important;
+        left: 12px !important;
+        right: auto !important;
+        z-index: 999999 !important;
+    }}
+    [data-testid="collapsedControl"] button {{
+        visibility: visible !important;
         background: #1a3a5c !important;
+        border: 1px solid #d8ae34 !important;
         border-radius: 8px !important;
-        padding: 4px !important;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.4) !important;
-        border: 1px solid #30363d !important;
+        padding: 6px 8px !important;
+        cursor: pointer !important;
+    }}
+    [data-testid="collapsedControl"] button:hover {{
+        background: #2980b9 !important;
     }}
     [data-testid="collapsedControl"] svg {{
         fill: #e6edf3 !important;
-        stroke: #e6edf3 !important;
-    }}
-    [data-testid="collapsedControl"]:hover {{
-        background: #2980b9 !important;
-        border-color: #d8ae34 !important;
+        color: #e6edf3 !important;
+        visibility: visible !important;
     }}
 
-    /* زرار القفل جوا الـ sidebar */
+    /* زرار القفل (جوا الـ sidebar) */
     [data-testid="stSidebarCollapseButton"] {{
         visibility: visible !important;
         opacity: 1 !important;
     }}
     [data-testid="stSidebarCollapseButton"] button {{
-        background: rgba(255,255,255,0.1) !important;
-        border: 1px solid rgba(255,255,255,0.15) !important;
+        visibility: visible !important;
+        background: rgba(255,255,255,0.08) !important;
+        border: 1px solid rgba(216,174,52,0.4) !important;
         border-radius: 8px !important;
-        color: white !important;
     }}
     [data-testid="stSidebarCollapseButton"] button:hover {{
-        background: rgba(216,174,52,0.2) !important;
-        border-color: #d8ae34 !important;
+        background: rgba(216,174,52,0.15) !important;
         transform: none !important;
     }}
     [data-testid="stSidebarCollapseButton"] svg {{
         fill: #e6edf3 !important;
-        stroke: #e6edf3 !important;
+        visibility: visible !important;
     }}
 
     /* ══════════════════════════════════════════════════════════════
-       📱 MOBILE — sidebar وعرض المحتوى
+       📱 MOBILE RESPONSIVE
     ══════════════════════════════════════════════════════════════ */
     @media (max-width: 768px) {{
-        /* الـ sidebar يبقى overlay فوق المحتوى في الموبايل */
+        .main-header {{ padding: 20px !important; flex-direction: column; gap: 12px; }}
+        .main-header h1 {{ font-size: 1.4rem !important; }}
+        .kpi-grid {{ grid-template-columns: repeat(2,1fr) !important; }}
+
         [data-testid="stSidebar"] {{
             position: fixed !important;
             top: 0 !important;
-            {'right' if LANG == 'ar' else 'left'}: 0 !important;
+            left: 0 !important;
             height: 100vh !important;
-            z-index: 1000 !important;
+            z-index: 99998 !important;
             min-width: 260px !important;
             max-width: 260px !important;
         }}
-        /* المحتوى الرئيسي مايتأثرش بالـ sidebar في الموبايل */
-        .main .block-container {{
-            padding-left: 1rem !important;
-            padding-right: 1rem !important;
-        }}
-        /* زرار الفتح في الموبايل */
         [data-testid="collapsedControl"] {{
-            top: 10px !important;
-            {'right' if LANG == 'ar' else 'left'}: 10px !important;
+            top: 8px !important;
+            left: 8px !important;
         }}
+        .main .block-container {{
+            padding-left: 0.75rem !important;
+            padding-right: 0.75rem !important;
+        }}
+    }}
+    @media (max-width: 640px) {{
+        .login-form-area {{ padding: 24px 16px; }}
+        .login-form-area,
+        .login-btn-wrap,
+        .donor-login-card,
+        .hint-box {{ max-width: 100% !important; }}
+    }}
+    @media (max-width: 480px) {{
+        .kpi-grid {{ grid-template-columns: 1fr !important; }}
     }}
 
     </style>
