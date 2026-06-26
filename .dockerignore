@@ -1,0 +1,10 @@
+.git
+.gitignore
+.notebook
+Data-Analysis-and-ML-Pipeline.ipynb
+screenshots
+__pycache__
+*.pyc
+README.md
+LICENSE
+.venv
