@@ -6,6 +6,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
 > An AI-powered social welfare platform that uses **Gaussian Mixture Model (GMM) clustering** to automatically classify needy families by vulnerability level — enabling NGOs and aid organizations to prioritize and allocate resources more effectively.
 
@@ -175,7 +176,11 @@ sanad-ai/
 │   ├── new_cases.csv        # Public submissions (auto-created)
 │   ├── sanad_users.json     # Admin credentials (hashed)
 │
-├── requirements.txt
+├── Dockerfile               # Docker image configuration
+├── .dockerignore            
+├── .gitignore               
+├── requirements.txt         
+├── LICENSE
 └── README.md
 ```
 
@@ -198,6 +203,52 @@ pip install -r requirements.txt
 
 # 4. Run the app
 streamlit run app.py
+```
+## Installation
+
+### Option 1 — Local Installation
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/Mohamed-n-Bashar/Sanad-Ai.git
+cd sanad-ai
+
+# 2. Create a virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+# Linux / macOS
+source venv/bin/activate
+
+# Windows
+venv\Scripts\activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Run the application
+streamlit run app.py
+```
+
+---
+
+### Option 2 — Docker
+
+If you have Docker installed, you can run SANAD without installing Python or any dependencies.
+
+```bash
+# 1. Build the Docker image
+docker build -t sanad-ai .
+
+# 2. Run the container
+docker run -p 8501:8501 sanad-ai
+
+# 3. Then open your browser and navigate to:
+http://localhost:8501
+
+# To stop the application, press:
+Ctrl + C
+
 ```
 
 ### `requirements.txt`
